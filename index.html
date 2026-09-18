@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Project Progress</title>
-<meta name="description" content="A live view of where the new online store stands today, and what comes next.">
+<meta name="description" content="A live view of where each project stands today, and what comes next.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -42,7 +42,7 @@
 
   .wrap{max-width:720px;margin:0 auto;padding:72px 24px 48px}
 
-  /* ---- header ---- */
+  /* ---- page header ---- */
   .eyebrow{
     font-size:11px;letter-spacing:.16em;text-transform:uppercase;
     color:var(--faint);margin:0 0 20px;
@@ -64,8 +64,56 @@
     max-width:48ch;
   }
 
-  /* ---- overall progress ---- */
-  .meter{margin:0 0 56px}
+  /* ---- overview ---- */
+  .overview{
+    display:grid;gap:12px;grid-template-columns:repeat(3,1fr);margin:0 0 72px;
+  }
+
+  .overview a{
+    display:block;background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:16px 18px 18px;text-decoration:none;color:inherit;
+    transition:border-color .25s ease;
+  }
+
+  .overview a:hover{border-color:var(--blush)}
+
+  .overview__client{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin:0 0 4px}
+
+  .overview__name{font-size:14px;margin:0 0 12px;color:var(--ink)}
+
+  .overview__pct{font-family:var(--serif);font-size:24px;line-height:1;margin:0 0 10px}
+
+  .overview .meter__track{height:3px}
+
+  /* ---- project ---- */
+  .project{margin:0 0 88px;scroll-margin-top:24px}
+
+  .project__client{
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--blush);margin:0 0 10px;font-weight:500;
+  }
+
+  .project__title{
+    font-family:var(--serif);font-weight:300;
+    font-size:clamp(26px,4.4vw,34px);line-height:1.15;margin:0 0 10px;
+  }
+
+  .project__note{color:var(--muted);font-size:15px;margin:0 0 22px;max-width:52ch}
+
+  .markets{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px}
+
+  .market{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;color:var(--ink);background:var(--card);
+    border:1px solid var(--line);border-radius:99px;padding:6px 12px 6px 10px;
+  }
+
+  .market::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--sage)}
+
+  .market span{color:var(--muted)}
+
+  /* ---- meter ---- */
+  .meter{margin:0 0 32px}
 
   .meter__top{
     display:flex;justify-content:space-between;align-items:baseline;
@@ -89,7 +137,7 @@
 
   /* ---- now / next ---- */
   .cards{
-    display:grid;gap:16px;grid-template-columns:1fr 1fr;margin:0 0 60px;
+    display:grid;gap:16px;grid-template-columns:1fr 1fr;margin:0 0 44px;
   }
 
   .card{
@@ -101,12 +149,15 @@
 
   .card--now{background:var(--blush-soft);border-color:#EBD8D4}
 
+  .card--idle{background:var(--card)}
+
   .card__tag{
     font-size:10px;letter-spacing:.16em;text-transform:uppercase;
     color:var(--blush);margin:0 0 10px;font-weight:500;
   }
 
-  .card--next .card__tag{color:var(--faint)}
+  .card--next .card__tag,
+  .card--idle .card__tag{color:var(--faint)}
 
   .card__title{
     font-family:var(--serif);font-size:21px;line-height:1.25;
@@ -116,13 +167,13 @@
   .card__note{font-size:14px;color:var(--muted);margin:0}
 
   /* ---- stages ---- */
-  h2{
+  h3.section{
     font-family:var(--serif);font-weight:400;font-size:13px;
     letter-spacing:.16em;text-transform:uppercase;color:var(--faint);
-    margin:0 0 24px;
+    margin:0 0 20px;
   }
 
-  .stages{list-style:none;margin:0 0 56px;padding:0}
+  .stages{list-style:none;margin:0 0 40px;padding:0}
 
   .stage{
     display:flex;gap:18px;align-items:flex-start;
@@ -166,7 +217,7 @@
   .preview{
     display:block;background:var(--card);border:1px solid var(--line);
     border-radius:var(--radius);padding:26px 28px;text-decoration:none;
-    color:inherit;margin:0 0 64px;
+    color:inherit;
     transition:border-color .25s ease, transform .25s ease;
   }
 
@@ -206,6 +257,7 @@
 
   @media (max-width:620px){
     .wrap{padding:48px 20px 40px}
+    .overview{grid-template-columns:1fr}
     .cards{grid-template-columns:1fr}
     .stage__state{display:none}
   }
@@ -220,43 +272,12 @@
 <div class="wrap">
 
   <p class="eyebrow">Project progress</p>
-  <h1>Your new online store</h1>
-  <p class="lede">A living view of where things stand. This page updates as each stage is completed — no need to ask.</p>
+  <h1>Where every project stands</h1>
+  <p class="lede">A living view of each build. This page updates as each stage is completed — no need to ask.</p>
 
-  <div class="meter">
-    <div class="meter__top">
-      <span class="meter__label"><span id="doneCount">0</span> of <span id="totalCount">0</span> stages complete</span>
-      <span class="meter__pct" id="pct">0%</span>
-    </div>
-    <div class="meter__track"><div class="meter__fill" id="fill"></div></div>
-  </div>
+  <nav class="overview" id="overview" aria-label="Projects"></nav>
 
-  <div class="cards">
-    <div class="card card--now">
-      <p class="card__tag">Happening now</p>
-      <h3 class="card__title" id="nowTitle">—</h3>
-      <p class="card__note" id="nowNote"></p>
-    </div>
-    <div class="card card--next">
-      <p class="card__tag">Up next</p>
-      <h3 class="card__title" id="nextTitle">—</h3>
-      <p class="card__note" id="nextNote"></p>
-    </div>
-  </div>
-
-  <h2>The journey</h2>
-  <ul class="stages" id="stages"></ul>
-
-  <a class="preview" href="https://gcrmsf-rh.myshopify.com/?_ab=0&amp;_fd=0&amp;_sc=1" target="_blank" rel="noopener">
-    <p class="preview__tag">Live preview</p>
-    <div class="preview__row">
-      <div>
-        <h3 class="preview__title">See the store as it stands</h3>
-        <p class="preview__note">Still being built — expect rough edges in the sections not yet marked complete.</p>
-      </div>
-      <span class="preview__arrow" aria-hidden="true">&rarr;</span>
-    </div>
-  </a>
+  <div id="projects"></div>
 
   <footer>
     <p class="updated">Last updated <span id="updated"></span></p>
@@ -266,67 +287,186 @@
 </div>
 
 <script>
-  /* Single source of truth. To update progress, change a `state` below and
-     adjust UPDATED. States: "done" | "now" | "todo". */
+  /* Single source of truth. To update progress, change a stage's `state` and
+     adjust UPDATED. States: "done" | "now" | "todo".
+     The three Women'secret stores share one build, so they share one stage
+     list and always show the same percentage. */
   const UPDATED = "18 September 2026";
 
-  const STAGES = [
-    { name: "Design study",            note: "Measuring the reference store, down to spacing and type.", state: "done" },
-    { name: "Visual foundations",      note: "Typefaces, colour and spacing set up as one system.",       state: "done" },
-    { name: "Store structure",         note: "All 16 categories and every navigation menu created.",      state: "done" },
-    { name: "Header & navigation",     note: "Top bar, logo, category menu and full dropdown menu, on desktop and phone.", state: "done" },
-    { name: "Homepage",                note: "Built on desktop and phone with the current campaign artwork.", state: "done" },
-    { name: "Category pages",          note: "Product grids, filters and sorting. 94 products are already in the store.", state: "now"  },
-    { name: "Product page",            note: "Gallery, sizes, and adding to the basket.",                  state: "todo" },
-    { name: "Basket & checkout",       note: "The full path from basket to order.",                        state: "todo" },
-    { name: "Footer & information",    note: "Footer finished on desktop and phone; help and policy pages to come.", state: "todo" },
-    { name: "Polish & handover",       note: "Phone testing, final pass, and walking you through it.",     state: "todo" }
+  const PROJECTS = [
+    {
+      id: "womensecret",
+      client: "Women'secret",
+      title: "Online stores",
+      note: "One build, rolled out to all three markets. The stores move together, so each one is at the same stage.",
+      markets: ["Egypt", "Jordan", "Kuwait"],
+      stages: [
+        { name: "Design study",         note: "Measuring the reference store, down to spacing and type.",                  state: "done" },
+        { name: "Visual foundations",   note: "Typefaces, colour and spacing set up as one system.",                       state: "done" },
+        { name: "Store structure",      note: "All 16 categories and every navigation menu created.",                      state: "done" },
+        { name: "Header & navigation",  note: "Top bar, logo, category menu and full dropdown menu, on desktop and phone.", state: "done" },
+        { name: "Homepage",             note: "Built on desktop and phone with the current campaign artwork.",             state: "done" },
+        { name: "Category pages",       note: "Product grids, filters and sorting. 94 products are already in the store.", state: "now"  },
+        { name: "Product page",         note: "Gallery, sizes, and adding to the basket.",                                 state: "todo" },
+        { name: "Basket & checkout",    note: "The full path from basket to order.",                                       state: "todo" },
+        { name: "Footer & information", note: "Footer finished on desktop and phone; help and policy pages to come.",     state: "todo" },
+        { name: "Polish & handover",    note: "Phone testing, final pass, and walking you through it.",                    state: "todo" }
+      ],
+      preview: {
+        url: "https://gcrmsf-rh.myshopify.com/?preview_theme_id=164935696599",
+        title: "See the store as it stands",
+        note: "One preview for all three stores, since they share the build. Sections not yet marked complete may still have rough edges."
+      }
+    },
+    {
+      id: "fig-store",
+      client: "FIG",
+      title: "Online store",
+      note: "The foundations are in place: the store's backend runs on Medusa and the project is set up.",
+      stages: [
+        { name: "Backend",                note: "Store backend set up on Medusa.",                          state: "done" },
+        { name: "Project setup",          note: "The project is built and ready to develop on.",            state: "done" },
+        { name: "Design",                 note: "The look of the store, page by page.",                     state: "todo" },
+        { name: "Product catalogue",      note: "Products, categories and stock brought in.",               state: "todo" },
+        { name: "Homepage",               note: "The first page customers see.",                            state: "todo" },
+        { name: "Category & product pages", note: "Browsing, filters and the product detail page.",        state: "todo" },
+        { name: "Basket & checkout",      note: "The full path from basket to order.",                      state: "todo" },
+        { name: "Payments & delivery",    note: "Payment methods and shipping set up.",                     state: "todo" },
+        { name: "Stock connection",       note: "Stock kept in step with the warehouse system.",            state: "todo" },
+        { name: "Testing & launch",       note: "Final checks on desktop and phone, then going live.",      state: "todo" }
+      ]
+    },
+    {
+      id: "fig-apps",
+      client: "FIG",
+      title: "Mobile apps",
+      note: "Two mobile apps. Work starts once the online store's foundations are ready.",
+      stages: [
+        { name: "Design",                 note: "App screens and flows.",                                   state: "todo" },
+        { name: "Build",                  note: "Both apps built and connected to the store.",              state: "todo" },
+        { name: "Testing",                note: "Testing on real phones.",                                  state: "todo" },
+        { name: "App store release",      note: "Submitted to the App Store and Google Play.",              state: "todo" }
+      ]
+    }
   ];
 
   const LABEL = { done: "Complete", now: "In progress", todo: "To come" };
 
-  const list = document.getElementById("stages");
+  /* A stage in progress counts as half, so the bar moves between milestones. */
+  const progressOf = (stages) => {
+    const done = stages.filter(s => s.state === "done").length;
+    const now = stages.some(s => s.state === "now");
+    return { done, total: stages.length, pct: Math.round(((done + (now ? 0.5 : 0)) / stages.length) * 100) };
+  };
 
-  STAGES.forEach(s => {
-    const li = document.createElement("li");
-    li.className = "stage stage--" + s.state;
-    li.innerHTML =
-      '<span class="dot"></span>' +
-      '<span class="stage__body">' +
-        '<p class="stage__name"></p>' +
-        '<p class="stage__note"></p>' +
-      '</span>' +
-      '<span class="stage__state"></span>';
-    li.querySelector(".stage__name").textContent = s.name;
-    li.querySelector(".stage__note").textContent = s.note;
-    li.querySelector(".stage__state").textContent = LABEL[s.state];
-    list.appendChild(li);
+  const el = (tag, cls, text) => {
+    const node = document.createElement(tag);
+    if (cls) node.className = cls;
+    if (text != null) node.textContent = text;
+    return node;
+  };
+
+  const meter = (label, pct) => {
+    const box = el("div", "meter");
+    const top = el("div", "meter__top");
+    top.append(el("span", "meter__label", label), el("span", "meter__pct", pct + "%"));
+    const track = el("div", "meter__track");
+    const fill = el("div", "meter__fill");
+    fill.dataset.pct = pct;
+    track.append(fill);
+    box.append(top, track);
+    return box;
+  };
+
+  const overview = document.getElementById("overview");
+  const root = document.getElementById("projects");
+
+  PROJECTS.forEach(p => {
+    const { done, total, pct } = progressOf(p.stages);
+    const now = p.stages.find(s => s.state === "now");
+    const next = p.stages.find(s => s.state === "todo");
+
+    /* overview tile */
+    const tile = el("a");
+    tile.href = "#" + p.id;
+    tile.append(
+      el("p", "overview__client", p.client),
+      el("p", "overview__name", p.title + (p.markets ? " · " + p.markets.length : "")),
+      el("p", "overview__pct", pct + "%")
+    );
+    const miniTrack = el("div", "meter__track");
+    const miniFill = el("div", "meter__fill");
+    miniFill.dataset.pct = pct;
+    miniTrack.append(miniFill);
+    tile.append(miniTrack);
+    overview.append(tile);
+
+    /* project section */
+    const section = el("section", "project");
+    section.id = p.id;
+    section.append(el("p", "project__client", p.client), el("h2", "project__title", p.title), el("p", "project__note", p.note));
+
+    if (p.markets) {
+      const markets = el("div", "markets");
+      p.markets.forEach(m => {
+        const chip = el("span", "market", m + " ");
+        chip.append(el("span", null, pct + "%"));
+        markets.append(chip);
+      });
+      section.append(markets);
+    }
+
+    section.append(meter(done + " of " + total + " stages complete", pct));
+
+    const cards = el("div", "cards");
+    const nowCard = el("div", now ? "card card--now" : "card card--idle");
+    nowCard.append(
+      el("p", "card__tag", now ? "Happening now" : "Status"),
+      el("h3", "card__title", now ? now.name : (done ? "Foundations in place" : "Not started yet")),
+      el("p", "card__note", now ? now.note : (done ? "The next stage starts soon." : "Scheduled after the online store."))
+    );
+    const nextCard = el("div", "card card--next");
+    nextCard.append(
+      el("p", "card__tag", "Up next"),
+      el("h3", "card__title", next ? next.name : "—"),
+      el("p", "card__note", next ? next.note : "")
+    );
+    cards.append(nowCard, nextCard);
+    section.append(cards);
+
+    section.append(el("h3", "section", "The journey"));
+    const list = el("ul", "stages");
+    p.stages.forEach(s => {
+      const li = el("li", "stage stage--" + s.state);
+      const body = el("span", "stage__body");
+      body.append(el("p", "stage__name", s.name), el("p", "stage__note", s.note));
+      li.append(el("span", "dot"), body, el("span", "stage__state", LABEL[s.state]));
+      list.append(li);
+    });
+    section.append(list);
+
+    if (p.preview) {
+      const a = el("a", "preview");
+      a.href = p.preview.url;
+      a.target = "_blank";
+      a.rel = "noopener";
+      const row = el("div", "preview__row");
+      const text = el("div");
+      text.append(el("h3", "preview__title", p.preview.title), el("p", "preview__note", p.preview.note));
+      const arrow = el("span", "preview__arrow", "→");
+      arrow.setAttribute("aria-hidden", "true");
+      row.append(text, arrow);
+      a.append(el("p", "preview__tag", "Live preview"), row);
+      section.append(a);
+    }
+
+    root.append(section);
   });
 
-  const done = STAGES.filter(s => s.state === "done").length;
-  const total = STAGES.length;
-  const now = STAGES.find(s => s.state === "now");
-  const next = STAGES.find(s => s.state === "todo");
-
-  document.getElementById("doneCount").textContent = done;
-  document.getElementById("totalCount").textContent = total;
   document.getElementById("updated").textContent = UPDATED;
 
-  /* A stage in progress counts as half, so the bar moves between milestones. */
-  const pct = Math.round(((done + (now ? 0.5 : 0)) / total) * 100);
-  document.getElementById("pct").textContent = pct + "%";
-
-  if (now) {
-    document.getElementById("nowTitle").textContent = now.name;
-    document.getElementById("nowNote").textContent = now.note;
-  }
-  if (next) {
-    document.getElementById("nextTitle").textContent = next.name;
-    document.getElementById("nextNote").textContent = next.note;
-  }
-
   requestAnimationFrame(() => {
-    document.getElementById("fill").style.width = pct + "%";
+    document.querySelectorAll(".meter__fill").forEach(f => { f.style.width = f.dataset.pct + "%"; });
   });
 </script>
 </body>
