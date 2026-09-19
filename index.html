@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Project Progress</title>
+<title>BAND × FIG · Work Progress</title>
 <meta name="description" content="A live view of where each project stands today, and what comes next.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -66,7 +66,7 @@
 
   /* ---- overview ---- */
   .overview{
-    display:grid;gap:12px;grid-template-columns:repeat(3,1fr);margin:0 0 72px;
+    display:grid;gap:12px;grid-template-columns:repeat(2,1fr);margin:0 0 72px;
   }
 
   .overview a{
@@ -295,7 +295,7 @@
 <body>
 <div class="wrap">
 
-  <p class="eyebrow">Project progress</p>
+  <p class="eyebrow">BAND × FIG · Work progress</p>
   <h1>Where every project stands</h1>
   <p class="lede">A living view of each build. This page updates as each stage is completed — no need to ask.</p>
 
@@ -364,16 +364,35 @@
       ]
     },
     {
-      id: "fig-apps",
-      client: "FIG",
-      title: "Mobile apps",
-      note: "Two mobile apps. Their backend runs on Medusa and is already set up.",
+      id: "labesny-app",
+      client: "Labesny",
+      title: "Mobile app · Labesny",
+      note: "The Labesny store as an iOS and Android app, in the Pulse look: blush, black and bold type. English and Arabic, prices in Kuwaiti dinar.",
+      preview: { title: "The design we are building from", note: "The Pulse direction. The app follows this look, screen by screen.", url: "https://band-agents.github.io/labesny-website-directions/pulse/" },
       stages: [
-        { name: "Backend",                note: "The apps' backend set up on Medusa.",                      state: "done" },
-        { name: "Design",                 note: "App screens and flows.",                                   state: "todo" },
-        { name: "Build",                  note: "Both apps built and connected to the store.",              state: "todo" },
-        { name: "Testing",                note: "Testing on real phones.",                                  state: "todo" },
-        { name: "App store release",      note: "Submitted to the App Store and Google Play.",              state: "todo" }
+        { name: "Design direction",    note: "The Pulse look chosen for the app.",                                              state: "done" },
+        { name: "Backend",             note: "Store, prices in Kuwaiti dinar, delivery rules and a first catalogue set up on Medusa.", state: "now"  },
+        { name: "App screens",         note: "Home, browsing, product, bag, favourites and account.",                           state: "todo" },
+        { name: "Build",               note: "The app built and connected to the store.",                                       state: "todo" },
+        { name: "Payments & delivery", note: "Payment methods and delivery set up.",                                            state: "todo" },
+        { name: "Stock connection",    note: "Stock kept in step with the warehouse system.",                                   state: "todo" },
+        { name: "Testing",             note: "Testing on real phones.",                                                         state: "todo" },
+        { name: "App store release",   note: "Submitted to the App Store and Google Play.",                                     state: "todo" }
+      ]
+    },
+    {
+      id: "fig-fashion-app",
+      client: "FIG",
+      title: "Mobile app · FIG Fashion Website",
+      note: "The FIG fashion website as an iOS and Android app. Its own backend, its own catalogue.",
+      stages: [
+        { name: "Backend",             note: "A Medusa project created for the app.",                                           state: "done" },
+        { name: "Design",              note: "App screens and flows.",                                                          state: "todo" },
+        { name: "Build",               note: "The app built and connected to the store.",                                       state: "todo" },
+        { name: "Payments & delivery", note: "Payment methods and delivery set up.",                                            state: "todo" },
+        { name: "Stock connection",    note: "Stock kept in step with the warehouse system.",                                   state: "todo" },
+        { name: "Testing",             note: "Testing on real phones.",                                                         state: "todo" },
+        { name: "App store release",   note: "Submitted to the App Store and Google Play.",                                     state: "todo" }
       ]
     }
   ];
