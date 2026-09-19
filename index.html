@@ -112,6 +112,29 @@
 
   .market span{color:var(--muted)}
 
+  /* ---- stores side by side ---- */
+  .stores{display:grid;gap:12px;grid-template-columns:repeat(3,1fr);margin:0 0 36px}
+
+  .store{
+    display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:18px 18px 16px;text-decoration:none;color:inherit;
+    transition:border-color .25s ease, transform .25s ease;
+  }
+
+  .store:hover{border-color:var(--blush);transform:translateY(-2px)}
+
+  .store__name{display:flex;align-items:center;gap:8px;font-size:14px;margin:0 0 12px}
+
+  .store__name::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--sage)}
+
+  .store__pct{font-family:var(--serif);font-size:26px;line-height:1;margin:0 0 10px}
+
+  .store .meter__track{height:3px;margin:0 0 12px}
+
+  .store__status{font-size:12.5px;color:var(--muted);margin:0 0 14px;flex:1 1 auto}
+
+  .store__link{font-size:12px;color:var(--blush);margin:0}
+
   /* ---- meter ---- */
   .meter{margin:0 0 32px}
 
@@ -258,13 +281,14 @@
   @media (max-width:620px){
     .wrap{padding:48px 20px 40px}
     .overview{grid-template-columns:1fr}
+    .stores{grid-template-columns:1fr}
     .cards{grid-template-columns:1fr}
     .stage__state{display:none}
   }
 
   @media (prefers-reduced-motion:reduce){
     .meter__fill{transition:none}
-    .preview{transition:none}
+    .preview,.store{transition:none}
   }
 </style>
 </head>
@@ -289,8 +313,8 @@
 <script>
   /* Single source of truth. To update progress, change a stage's `state` and
      adjust UPDATED. States: "done" | "now" | "todo".
-     The three Women'secret stores share one build, so they share one stage
-     list and always show the same percentage. */
+     The three Women'secret stores share one build and one stage list; each
+     store adds its own "Country set-up" stage, so their percentages can differ. */
   const UPDATED = "19 September 2026";
 
   const PROJECTS = [
@@ -298,8 +322,17 @@
       id: "womensecret",
       client: "Women'secret",
       title: "Online stores",
-      note: "One build, rolled out to all three markets. The stores move together, so each one is at the same stage.",
-      markets: ["Egypt", "Jordan", "Kuwait"],
+      note: "One build, shared by three stores. Every improvement reaches all three; each store then gets its own currency, branches and local details.",
+      /* The per-country stage. Its state is the only thing that differs between stores. */
+      country: { name: "Country set-up", note: "Currency, branches, contact details, delivery and local content for each country." },
+      markets: [
+        { name: "Egypt",  state: "done", status: "Set up for Egypt: pounds, both Cairo branches and local details.",
+          url: "https://gcrmsf-rh.myshopify.com/?preview_theme_id=164935696599" },
+        { name: "Jordan", state: "now",  status: "The full store is copied across. Currency and Jordan's local details are next.",
+          url: "https://d0kb1v-p9.myshopify.com/?_ab=0&_fd=0&_sc=1&key=2a0c0a0245b5c33c33581bf089f81158a936294a4f93c6397221a3a0142c89ec&preview_theme_id=160076464228" },
+        { name: "Kuwait", state: "now",  status: "The full store is copied across. Currency and Kuwait's local details are next.",
+          url: "https://qxc3f7-2n.myshopify.com/?_ab=0&_fd=0&_sc=1&key=ca2fef284168ba415b7ec7608bc219ade7f5c57efb2823c1efb33c301144b811&preview_theme_id=153370493124" }
+      ],
       stages: [
         { name: "Design study",         note: "Measuring the reference store, down to spacing and type.",                  state: "done" },
         { name: "Visual foundations",   note: "Typefaces, colour and spacing set up as one system.",                       state: "done" },
@@ -311,21 +344,15 @@
         { name: "Basket & checkout",    note: "Basket built and working; checkout branding next.",                         state: "now"  },
         { name: "Footer & information", note: "Footer, FAQs, customer service, store finder with map and the Club WOW page in place.", state: "done" },
         { name: "Polish & handover",    note: "Phone testing, final pass, and walking you through it.",                    state: "todo" }
-      ],
-      preview: {
-        url: "https://gcrmsf-rh.myshopify.com/?preview_theme_id=164935696599",
-        title: "See the store as it stands",
-        note: "One preview for all three stores, since they share the build. Sections not yet marked complete may still have rough edges."
-      }
+      ]
     },
     {
       id: "fig-store",
       client: "FIG",
-      title: "Online store",
-      note: "The foundations are in place: the store's backend runs on Medusa and the project is set up.",
+      title: "Online store · FIG JOR",
+      note: "A fashion store, built on Shopify. The project is set up and ready for design.",
       stages: [
-        { name: "Backend",                note: "Store backend set up on Medusa.",                          state: "done" },
-        { name: "Project setup",          note: "The project is built and ready to develop on.",            state: "done" },
+        { name: "Project setup",          note: "The Shopify store is set up and ready to develop on.",     state: "done" },
         { name: "Design",                 note: "The look of the store, page by page.",                     state: "todo" },
         { name: "Product catalogue",      note: "Products, categories and stock brought in.",               state: "todo" },
         { name: "Homepage",               note: "The first page customers see.",                            state: "todo" },
@@ -340,8 +367,9 @@
       id: "fig-apps",
       client: "FIG",
       title: "Mobile apps",
-      note: "Two mobile apps. Work starts once the online store's foundations are ready.",
+      note: "Two mobile apps. Their backend runs on Medusa and is already set up.",
       stages: [
+        { name: "Backend",                note: "The apps' backend set up on Medusa.",                      state: "done" },
         { name: "Design",                 note: "App screens and flows.",                                   state: "todo" },
         { name: "Build",                  note: "Both apps built and connected to the store.",              state: "todo" },
         { name: "Testing",                note: "Testing on real phones.",                                  state: "todo" },
@@ -352,12 +380,15 @@
 
   const LABEL = { done: "Complete", now: "In progress", todo: "To come" };
 
-  /* A stage in progress counts as half, so the bar moves between milestones. */
+  /* Each stage in progress counts as half, so the bar moves between milestones. */
   const progressOf = (stages) => {
     const done = stages.filter(s => s.state === "done").length;
-    const now = stages.some(s => s.state === "now");
-    return { done, total: stages.length, pct: Math.round(((done + (now ? 0.5 : 0)) / stages.length) * 100) };
+    const now = stages.filter(s => s.state === "now").length;
+    return { done, total: stages.length, pct: Math.round(((done + now * 0.5) / stages.length) * 100) };
   };
+
+  /* A store's own stage list: the shared stages plus its country set-up. */
+  const storeStages = (p, m) => [...p.stages, { ...p.country, state: m.state }];
 
   const el = (tag, cls, text) => {
     const node = document.createElement(tag);
@@ -382,9 +413,16 @@
   const root = document.getElementById("projects");
 
   PROJECTS.forEach(p => {
-    const { done, total, pct } = progressOf(p.stages);
-    const now = p.stages.find(s => s.state === "now");
-    const next = p.stages.find(s => s.state === "todo");
+    const stores = p.markets ? p.markets.map(m => ({ ...m, ...progressOf(storeStages(p, m)) })) : null;
+    /* A multi-store project shows the average of its stores; its journey is the shared stages plus the country stage. */
+    const countryState = stores ? (stores.every(m => m.state === "done") ? "done" : stores.some(m => m.state !== "todo") ? "now" : "todo") : null;
+    const stages = stores
+      ? [...p.stages, { ...p.country, state: countryState, note: p.country.note + " " + stores.map(m => m.name + ": " + LABEL[m.state].toLowerCase()).join(" · ") + "." }]
+      : p.stages;
+    const { done, total } = progressOf(stages);
+    const pct = stores ? Math.round(stores.reduce((a, m) => a + m.pct, 0) / stores.length) : progressOf(stages).pct;
+    const now = stages.find(s => s.state === "now");
+    const next = stages.find(s => s.state === "todo");
 
     /* overview tile */
     const tile = el("a");
@@ -406,17 +444,26 @@
     section.id = p.id;
     section.append(el("p", "project__client", p.client), el("h2", "project__title", p.title), el("p", "project__note", p.note));
 
-    if (p.markets) {
-      const markets = el("div", "markets");
-      p.markets.forEach(m => {
-        const chip = el("span", "market", m + " ");
-        chip.append(el("span", null, pct + "%"));
-        markets.append(chip);
+    if (stores) {
+      const grid = el("div", "stores");
+      stores.forEach(m => {
+        const card = el("a", "store");
+        card.href = m.url;
+        card.target = "_blank";
+        card.rel = "noopener";
+        card.append(el("p", "store__name", p.client + " " + m.name), el("p", "store__pct", m.pct + "%"));
+        const track = el("div", "meter__track");
+        const fill = el("div", "meter__fill");
+        fill.dataset.pct = m.pct;
+        track.append(fill);
+        card.append(track, el("p", "store__status", m.status), el("p", "store__link", "Open the preview →"));
+        grid.append(card);
       });
-      section.append(markets);
+      section.append(grid);
+      section.append(meter("Average of the three stores · " + done + " of " + total + " stages complete", pct));
+    } else {
+      section.append(meter(done + " of " + total + " stages complete", pct));
     }
-
-    section.append(meter(done + " of " + total + " stages complete", pct));
 
     const cards = el("div", "cards");
     const nowCard = el("div", now ? "card card--now" : "card card--idle");
@@ -436,7 +483,7 @@
 
     section.append(el("h3", "section", "The journey"));
     const list = el("ul", "stages");
-    p.stages.forEach(s => {
+    stages.forEach(s => {
       const li = el("li", "stage stage--" + s.state);
       const body = el("span", "stage__body");
       body.append(el("p", "stage__name", s.name), el("p", "stage__note", s.note));
