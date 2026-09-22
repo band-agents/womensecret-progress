@@ -40,116 +40,84 @@
     -moz-osx-font-smoothing:grayscale;
   }
 
-  .wrap{max-width:720px;margin:0 auto;padding:72px 24px 48px}
+  /* The page is a board, not a scroll: everything of the same kind sits on one
+     row, and the long stage lists stay folded until they are asked for. */
+  .wrap{max-width:1180px;margin:0 auto;padding:64px 28px 48px}
 
   /* ---- page header ---- */
   .eyebrow{
     font-size:11px;letter-spacing:.16em;text-transform:uppercase;
-    color:var(--faint);margin:0 0 20px;
+    color:var(--faint);margin:0 0 18px;
   }
 
   h1{
     font-family:var(--serif);
     font-weight:300;
-    font-size:clamp(34px,6vw,50px);
+    font-size:clamp(32px,5vw,46px);
     line-height:1.12;
     letter-spacing:-.01em;
-    margin:0 0 14px;
+    margin:0 0 12px;
   }
 
-  .lede{
-    color:var(--muted);
-    font-size:17px;
-    margin:0 0 40px;
-    max-width:48ch;
+  .lede{color:var(--muted);font-size:17px;margin:0 0 14px;max-width:52ch}
+
+  .headline{
+    display:flex;align-items:flex-end;justify-content:space-between;
+    gap:28px;flex-wrap:wrap;margin:0 0 44px;
   }
 
-  /* ---- overview ---- */
-  .overview{
-    display:grid;gap:12px;grid-template-columns:repeat(2,1fr);margin:0 0 72px;
+  .headline__stat{text-align:right}
+
+  .headline__stat b{
+    display:block;font-family:var(--serif);font-weight:300;font-size:44px;line-height:1;
   }
 
-  .overview a{
-    display:block;background:var(--card);border:1px solid var(--line);
-    border-radius:14px;padding:16px 18px 18px;text-decoration:none;color:inherit;
-    transition:border-color .25s ease;
+  .headline__stat span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+
+  /* ---- groups ---- */
+  .group{margin:0 0 52px}
+
+  .group__head{
+    display:flex;align-items:baseline;gap:14px;
+    margin:0 0 18px;padding-bottom:12px;border-bottom:1px solid var(--line);
   }
 
-  .overview a:hover{border-color:var(--blush)}
+  .group__title{
+    font-family:var(--serif);font-weight:400;font-size:19px;margin:0;
+  }
 
-  .overview__client{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin:0 0 4px}
+  .group__count{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
 
-  .overview__name{font-size:14px;margin:0 0 12px;color:var(--ink)}
+  .board{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
 
-  .overview__pct{font-family:var(--serif);font-size:24px;line-height:1;margin:0 0 10px}
-
-  .overview .meter__track{height:3px}
-
-  /* ---- project ---- */
-  .project{margin:0 0 88px;scroll-margin-top:24px}
+  /* ---- project card ---- */
+  .project{
+    display:flex;flex-direction:column;
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px 24px 20px;scroll-margin-top:24px;
+  }
 
   .project__client{
-    font-size:11px;letter-spacing:.16em;text-transform:uppercase;
-    color:var(--blush);margin:0 0 10px;font-weight:500;
+    font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--blush);margin:0 0 8px;font-weight:500;
   }
 
   .project__title{
-    font-family:var(--serif);font-weight:300;
-    font-size:clamp(26px,4.4vw,34px);line-height:1.15;margin:0 0 10px;
+    font-family:var(--serif);font-weight:300;font-size:25px;line-height:1.2;margin:0 0 8px;
   }
 
-  .project__note{color:var(--muted);font-size:15px;margin:0 0 22px;max-width:52ch}
-
-  .markets{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px}
-
-  .market{
-    display:inline-flex;align-items:center;gap:8px;
-    font-size:13px;color:var(--ink);background:var(--card);
-    border:1px solid var(--line);border-radius:99px;padding:6px 12px 6px 10px;
-  }
-
-  .market::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--sage)}
-
-  .market span{color:var(--muted)}
-
-  /* ---- stores side by side ---- */
-  .stores{display:grid;gap:12px;grid-template-columns:repeat(3,1fr);margin:0 0 36px}
-
-  .store{
-    display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);
-    border-radius:14px;padding:18px 18px 16px;text-decoration:none;color:inherit;
-    transition:border-color .25s ease, transform .25s ease;
-  }
-
-  .store:hover{border-color:var(--blush);transform:translateY(-2px)}
-
-  .store__name{display:flex;align-items:center;gap:8px;font-size:14px;margin:0 0 12px}
-
-  .store__name::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--sage)}
-
-  .store__pct{font-family:var(--serif);font-size:26px;line-height:1;margin:0 0 10px}
-
-  .store .meter__track{height:3px;margin:0 0 12px}
-
-  .store__status{font-size:12.5px;color:var(--muted);margin:0 0 14px;flex:1 1 auto}
-
-  .store__link{font-size:12px;color:var(--blush);margin:0}
+  .project__note{color:var(--muted);font-size:13.5px;line-height:1.55;margin:0 0 18px}
 
   /* ---- meter ---- */
-  .meter{margin:0 0 32px}
+  .meter{margin:0 0 18px}
 
-  .meter__top{
-    display:flex;justify-content:space-between;align-items:baseline;
-    margin-bottom:12px;
-  }
+  .meter__top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px}
 
-  .meter__label{font-size:13px;color:var(--muted)}
+  .meter__label{font-size:12px;color:var(--muted)}
 
-  .meter__pct{font-family:var(--serif);font-size:22px;color:var(--ink)}
+  .meter__pct{font-family:var(--serif);font-size:20px;color:var(--ink)}
 
-  .meter__track{
-    height:5px;border-radius:99px;background:var(--line);overflow:hidden;
-  }
+  .meter__track{height:5px;border-radius:99px;background:var(--line);overflow:hidden}
 
   .meter__fill{
     height:100%;border-radius:99px;
@@ -158,78 +126,95 @@
     transition:width 1.1s cubic-bezier(.22,.8,.3,1);
   }
 
+  /* ---- stores inside a card, side by side ---- */
+  .stores{display:grid;gap:10px;grid-template-columns:repeat(3,1fr);margin:0 0 18px}
+
+  .store{
+    display:flex;flex-direction:column;gap:6px;
+    background:var(--bg);border:1px solid var(--line);border-radius:12px;
+    padding:12px 12px 11px;text-decoration:none;color:inherit;
+    transition:border-color .25s ease;
+  }
+
+  .store:hover{border-color:var(--blush)}
+
+  .store__name{display:flex;align-items:center;gap:7px;font-size:12.5px;margin:0}
+
+  .store__name::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--sage);flex:0 0 auto}
+
+  .store--now .store__name::before{background:var(--blush)}
+
+  .store__pct{font-family:var(--serif);font-size:19px;line-height:1;margin:0}
+
+  .store .meter__track{height:3px}
+
+  .store__link{font-size:11px;color:var(--blush);margin:2px 0 0}
+
   /* ---- now / next ---- */
-  .cards{
-    display:grid;gap:16px;grid-template-columns:1fr 1fr;margin:0 0 44px;
+  .lines{margin:0 0 16px}
+
+  .line{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}
+
+  .line__tag{
+    flex:0 0 62px;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--faint);padding-top:4px;
   }
 
-  .card{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:24px 24px 26px;
+  .line--now .line__tag{color:var(--blush)}
+
+  .line__body{flex:1 1 auto;min-width:0}
+
+  .line__name{font-size:14px;margin:0}
+
+  .line--now .line__name{font-weight:500}
+
+  .line__note{font-size:12.5px;color:var(--faint);line-height:1.5;margin:2px 0 0}
+
+  /* ---- the journey, folded ---- */
+  details{border-top:1px solid var(--line);margin-top:auto}
+
+  summary{
+    list-style:none;cursor:pointer;padding:13px 0 0;
+    font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
   }
 
-  .card--now{background:var(--blush-soft);border-color:#EBD8D4}
+  summary::-webkit-details-marker{display:none}
 
-  .card--idle{background:var(--card)}
+  summary::after{content:"+";font-size:14px;letter-spacing:0;color:var(--blush)}
 
-  .card__tag{
-    font-size:10px;letter-spacing:.16em;text-transform:uppercase;
-    color:var(--blush);margin:0 0 10px;font-weight:500;
-  }
+  details[open] summary::after{content:"–"}
 
-  .card--next .card__tag,
-  .card--idle .card__tag{color:var(--faint)}
+  summary:hover{color:var(--muted)}
 
-  .card__title{
-    font-family:var(--serif);font-size:21px;line-height:1.25;
-    font-weight:400;margin:0 0 8px;
-  }
+  .stages{list-style:none;margin:10px 0 4px;padding:0}
 
-  .card__note{font-size:14px;color:var(--muted);margin:0}
-
-  /* ---- stages ---- */
-  h3.section{
-    font-family:var(--serif);font-weight:400;font-size:13px;
-    letter-spacing:.16em;text-transform:uppercase;color:var(--faint);
-    margin:0 0 20px;
-  }
-
-  .stages{list-style:none;margin:0 0 40px;padding:0}
-
-  .stage{
-    display:flex;gap:18px;align-items:flex-start;
-    padding:17px 0;border-bottom:1px solid var(--line);
-  }
+  .stage{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line)}
 
   .stage:last-child{border-bottom:0}
 
   .dot{
-    flex:0 0 auto;width:11px;height:11px;border-radius:50%;
-    margin-top:7px;border:1.5px solid var(--line);background:transparent;
+    flex:0 0 auto;width:9px;height:9px;border-radius:50%;
+    margin-top:6px;border:1.5px solid var(--line);background:transparent;
   }
 
   .stage--done .dot{background:var(--sage);border-color:var(--sage)}
 
-  .stage--now .dot{
-    background:var(--blush);border-color:var(--blush);
-    box-shadow:0 0 0 5px var(--blush-soft);
-  }
+  .stage--now .dot{background:var(--blush);border-color:var(--blush);box-shadow:0 0 0 4px var(--blush-soft)}
 
   .stage__body{flex:1 1 auto;min-width:0}
 
-  .stage__name{font-size:16px;margin:0}
+  .stage__name{font-size:13.5px;margin:0}
 
   .stage--done .stage__name{color:var(--muted)}
 
   .stage--now .stage__name{font-weight:500}
 
-  .stage__note{font-size:13.5px;color:var(--faint);margin:3px 0 0}
+  .stage__note{font-size:12px;color:var(--faint);line-height:1.5;margin:2px 0 0}
 
   .stage__state{
-    flex:0 0 auto;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-    color:var(--faint);padding-top:5px;
+    flex:0 0 auto;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--faint);padding-top:4px;
   }
 
   .stage--done .stage__state{color:var(--sage)}
@@ -238,30 +223,22 @@
 
   /* ---- preview link ---- */
   .preview{
-    display:block;background:var(--card);border:1px solid var(--line);
-    border-radius:var(--radius);padding:26px 28px;text-decoration:none;
-    color:inherit;
-    transition:border-color .25s ease, transform .25s ease;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    border-top:1px solid var(--line);margin-top:4px;padding-top:13px;
+    text-decoration:none;color:inherit;
   }
 
-  .preview:hover{border-color:var(--blush);transform:translateY(-2px)}
+  .preview__title{font-size:12.5px;margin:0;color:var(--muted)}
 
-  .preview__tag{
-    font-size:10px;letter-spacing:.16em;text-transform:uppercase;
-    color:var(--faint);margin:0 0 8px;
-  }
-
-  .preview__row{display:flex;align-items:center;justify-content:space-between;gap:16px}
-
-  .preview__title{font-family:var(--serif);font-size:20px;font-weight:400;margin:0}
-
-  .preview__note{font-size:13.5px;color:var(--muted);margin:6px 0 0}
+  .preview:hover .preview__title{color:var(--ink)}
 
   .preview__arrow{
-    flex:0 0 auto;width:34px;height:34px;border-radius:50%;
+    flex:0 0 auto;width:26px;height:26px;border-radius:50%;
     border:1px solid var(--line);display:grid;place-items:center;
-    color:var(--blush);font-size:15px;
+    color:var(--blush);font-size:13px;
   }
+
+  .preview:hover .preview__arrow{border-color:var(--blush)}
 
   /* ---- footer ---- */
   footer{
@@ -278,30 +255,40 @@
 
   .by a:hover{color:var(--blush);border-bottom-color:var(--blush)}
 
-  @media (max-width:620px){
-    .wrap{padding:48px 20px 40px}
-    .overview{grid-template-columns:1fr}
-    .stores{grid-template-columns:1fr}
-    .cards{grid-template-columns:1fr}
+  @media (max-width:760px){
+    .wrap{padding:44px 20px 40px}
+    .headline{gap:18px}
+    .headline__stat{text-align:left}
+    .board{grid-template-columns:1fr}
     .stage__state{display:none}
+  }
+
+  @media (max-width:420px){
+    .stores{grid-template-columns:1fr}
   }
 
   @media (prefers-reduced-motion:reduce){
     .meter__fill{transition:none}
-    .preview,.store{transition:none}
+    .store{transition:none}
   }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <p class="eyebrow">BAND × FIG · Work progress</p>
-  <h1>Where every project stands</h1>
-  <p class="lede">A living view of each build. This page updates as each stage is completed — no need to ask.</p>
+  <div class="headline">
+    <div>
+      <p class="eyebrow">BAND × FIG · Work progress</p>
+      <h1>Where every project stands</h1>
+      <p class="lede">Websites first, then the mobile apps. Open a card's journey to see every stage.</p>
+    </div>
+    <div class="headline__stat">
+      <b id="overall">—</b>
+      <span>Across all projects</span>
+    </div>
+  </div>
 
-  <nav class="overview" id="overview" aria-label="Projects"></nav>
-
-  <div id="projects"></div>
+  <div id="groups"></div>
 
   <footer>
     <p class="updated">Last updated <span id="updated"></span></p>
@@ -313,15 +300,20 @@
 <script>
   /* Single source of truth. To update progress, change a stage's `state` and
      adjust UPDATED. States: "done" | "now" | "todo".
-     The three Women'secret stores share one build and one stage list; each
-     store adds its own "Country set-up" stage, so their percentages can differ. */
-  const UPDATED = "19 September 2026";
+     `group` decides which row a project sits on. */
+  const UPDATED = "22 September 2026";
+
+  const GROUPS = [
+    { id: "sites", title: "Online stores" },
+    { id: "apps",  title: "Mobile apps" }
+  ];
 
   const PROJECTS = [
     {
       id: "womensecret",
+      group: "sites",
       client: "Women'secret",
-      title: "Online stores",
+      title: "Three stores",
       note: "One build, shared by three stores. Every improvement reaches all three; each store then gets its own currency, branches and local details.",
       /* The per-country stage. Its state is the only thing that differs between stores. */
       country: { name: "Country set-up", note: "Currency, branches, contact details, delivery and local content for each country." },
@@ -348,27 +340,48 @@
     },
     {
       id: "fig-store",
+      group: "sites",
       client: "FIG",
-      title: "Online store · FIG JOR",
-      note: "A fashion store, built on Shopify. The project is set up and ready for design.",
+      title: "FIG online store",
+      note: "figeg.com rebuilt on Shopify, in the Bazaar look: a marketplace layout with rails, a flash-sale strip and recommendations throughout.",
+      preview: { title: "The design we are building from", url: "https://band-agents.github.io/fig-website-directions/bazaar/" },
       stages: [
-        { name: "Project setup",          note: "The Shopify store is set up and ready to develop on.",     state: "done" },
-        { name: "Design",                 note: "The look of the store, page by page.",                     state: "todo" },
-        { name: "Product catalogue",      note: "Products, categories and stock brought in.",               state: "todo" },
-        { name: "Homepage",               note: "The first page customers see.",                            state: "todo" },
-        { name: "Category & product pages", note: "Browsing, filters and the product detail page.",        state: "todo" },
-        { name: "Basket & checkout",      note: "The full path from basket to order.",                      state: "todo" },
-        { name: "Payments & delivery",    note: "Payment methods and shipping set up.",                     state: "todo" },
-        { name: "Stock connection",       note: "Stock kept in step with the warehouse system.",            state: "todo" },
-        { name: "Testing & launch",       note: "Final checks on desktop and phone, then going live.",      state: "todo" }
+        { name: "Project setup",            note: "The Shopify store is set up and ready to develop on.",                  state: "done" },
+        { name: "Design",                   note: "The Bazaar look built as a working theme: typefaces, colour, spacing and every component, on desktop and phone.", state: "done" },
+        { name: "Homepage",                 note: "Hero, categories, flash sale, offers, brands, shop-the-look and the recommendation rows, uploaded to the store as a draft theme.", state: "done" },
+        { name: "Category & product pages", note: "Product grids with filters and sorting, and the product page with gallery, colours, sizes and quick add.", state: "done" },
+        { name: "Basket & recommendations", note: "Basket with free-delivery progress, \"goes with your bag\" suggestions, and buy-it-together bundles.", state: "done" },
+        { name: "Product catalogue",        note: "The whole of figeg.com is exported and checked: 6,730 products, 26,829 sizes and colours, 1,706 customers, 254 orders, 246 categories. Bringing it into Shopify is next.", state: "now"  },
+        { name: "Payments & delivery",      note: "Payment methods and shipping set up.",                                  state: "todo" },
+        { name: "Stock connection",         note: "Stock kept in step with the warehouse system.",                         state: "todo" },
+        { name: "Testing & launch",         note: "Final checks on desktop and phone, then going live.",                   state: "todo" }
+      ]
+    },
+    {
+      id: "labesny-store",
+      group: "sites",
+      client: "Labesny",
+      title: "Labesny online store",
+      note: "labesny.com rebuilt in the Pulse look: blush colour blocks, bold display type and the same recommendation layer as the FIG store.",
+      preview: { title: "See it on the store", url: "https://szk0ey-ns.myshopify.com/?preview_theme_id=166531825795" },
+      stages: [
+        { name: "Design direction",         note: "The Pulse look, with the palette tuned to Labesny's own blush, black and cream.", state: "done" },
+        { name: "Design",                   note: "Typefaces, colour and spacing built as one system, on desktop and phone.", state: "done" },
+        { name: "Homepage",                 note: "Split colour hero, categories, new in, the brand band, trending, shop-the-look and the recommendation rows — live on the store's draft theme with your real products.", state: "done" },
+        { name: "Category & product pages", note: "Product grids with filters and sorting, and the product page with gallery, colours, sizes and quick add.", state: "done" },
+        { name: "Basket & recommendations", note: "Basket with free-delivery progress, \"goes with your bag\" suggestions, and buy-it-together bundles.", state: "done" },
+        { name: "Content & imagery",        note: "Campaign photography, category images and the wording for each row.",  state: "now"  },
+        { name: "Arabic",                   note: "The store in Arabic, right to left.",                                   state: "todo" },
+        { name: "Testing & launch",         note: "Final checks on desktop and phone, then going live.",                   state: "todo" }
       ]
     },
     {
       id: "labesny-app",
+      group: "apps",
       client: "Labesny",
       title: "Mobile app · Labesny",
       note: "The Labesny store as an iOS and Android app, in the Pulse look: blush, black and bold type. English and Arabic, prices in Kuwaiti dinar.",
-      preview: { title: "The design we are building from", note: "The Pulse direction. The app follows this look, screen by screen.", url: "https://band-agents.github.io/labesny-website-directions/pulse/" },
+      preview: { title: "The design we are building from", url: "https://band-agents.github.io/labesny-website-directions/pulse/" },
       stages: [
         { name: "Design direction",       note: "The Pulse look chosen for the app.",                                                        state: "done" },
         { name: "Backend",                note: "Store, prices in Kuwaiti dinar, delivery rules, orders and customer accounts, built and tested on Medusa.", state: "done" },
@@ -382,6 +395,7 @@
     },
     {
       id: "fig-fashion-app",
+      group: "apps",
       client: "FIG",
       title: "Mobile app · FIG Fashion Website",
       note: "The FIG fashion website as an iOS and Android app. Its own backend, its own catalogue.",
@@ -416,119 +430,131 @@
     return node;
   };
 
+  const track = (pct, cls) => {
+    const t = el("div", "meter__track" + (cls ? " " + cls : ""));
+    const fill = el("div", "meter__fill");
+    fill.dataset.pct = pct;
+    t.append(fill);
+    return t;
+  };
+
   const meter = (label, pct) => {
     const box = el("div", "meter");
     const top = el("div", "meter__top");
     top.append(el("span", "meter__label", label), el("span", "meter__pct", pct + "%"));
-    const track = el("div", "meter__track");
-    const fill = el("div", "meter__fill");
-    fill.dataset.pct = pct;
-    track.append(fill);
-    box.append(top, track);
+    box.append(top, track(pct));
     return box;
   };
 
-  const overview = document.getElementById("overview");
-  const root = document.getElementById("projects");
-
-  PROJECTS.forEach(p => {
-    const stores = p.markets ? p.markets.map(m => ({ ...m, ...progressOf(storeStages(p, m)) })) : null;
-    /* A multi-store project shows the average of its stores; its journey is the shared stages plus the country stage. */
-    const countryState = stores ? (stores.every(m => m.state === "done") ? "done" : stores.some(m => m.state !== "todo") ? "now" : "todo") : null;
-    const stages = stores
-      ? [...p.stages, { ...p.country, state: countryState, note: p.country.note + " " + stores.map(m => m.name + ": " + LABEL[m.state].toLowerCase()).join(" · ") + "." }]
-      : p.stages;
-    const { done, total } = progressOf(stages);
-    const pct = stores ? Math.round(stores.reduce((a, m) => a + m.pct, 0) / stores.length) : progressOf(stages).pct;
-    const now = stages.find(s => s.state === "now");
-    const next = stages.find(s => s.state === "todo");
-
-    /* overview tile */
-    const tile = el("a");
-    tile.href = "#" + p.id;
-    tile.append(
-      el("p", "overview__client", p.client),
-      el("p", "overview__name", p.title + (p.markets ? " · " + p.markets.length : "")),
-      el("p", "overview__pct", pct + "%")
+  const line = (tag, stage, fallback) => {
+    const row = el("div", "line" + (tag === "Now" ? " line--now" : ""));
+    const body = el("div", "line__body");
+    body.append(
+      el("p", "line__name", stage ? stage.name : fallback.name),
+      el("p", "line__note", stage ? stage.note : fallback.note)
     );
-    const miniTrack = el("div", "meter__track");
-    const miniFill = el("div", "meter__fill");
-    miniFill.dataset.pct = pct;
-    miniTrack.append(miniFill);
-    tile.append(miniTrack);
-    overview.append(tile);
+    row.append(el("span", "line__tag", tag), body);
+    return row;
+  };
 
-    /* project section */
-    const section = el("section", "project");
-    section.id = p.id;
-    section.append(el("p", "project__client", p.client), el("h2", "project__title", p.title), el("p", "project__note", p.note));
+  const groupsRoot = document.getElementById("groups");
+  const totals = [];
 
-    if (stores) {
-      const grid = el("div", "stores");
-      stores.forEach(m => {
-        const card = el("a", "store");
-        card.href = m.url;
-        card.target = "_blank";
-        card.rel = "noopener";
-        card.append(el("p", "store__name", p.client + " " + m.name), el("p", "store__pct", m.pct + "%"));
-        const track = el("div", "meter__track");
-        const fill = el("div", "meter__fill");
-        fill.dataset.pct = m.pct;
-        track.append(fill);
-        card.append(track, el("p", "store__status", m.status), el("p", "store__link", "Open the preview →"));
-        grid.append(card);
+  GROUPS.forEach(g => {
+    const items = PROJECTS.filter(p => p.group === g.id);
+    if (!items.length) return;
+
+    const section = el("section", "group");
+    const head = el("div", "group__head");
+    head.append(el("h2", "group__title", g.title), el("span", "group__count", items.length + (items.length === 1 ? " project" : " projects")));
+    section.append(head);
+
+    const board = el("div", "board");
+
+    items.forEach(p => {
+      const stores = p.markets ? p.markets.map(m => ({ ...m, ...progressOf(storeStages(p, m)) })) : null;
+      /* A multi-store project shows the average of its stores; its journey is the shared stages plus the country stage. */
+      const countryState = stores ? (stores.every(m => m.state === "done") ? "done" : stores.some(m => m.state !== "todo") ? "now" : "todo") : null;
+      const stages = stores
+        ? [...p.stages, { ...p.country, state: countryState, note: p.country.note + " " + stores.map(m => m.name + ": " + LABEL[m.state].toLowerCase()).join(" · ") + "." }]
+        : p.stages;
+      const { done, total } = progressOf(stages);
+      const pct = stores ? Math.round(stores.reduce((a, m) => a + m.pct, 0) / stores.length) : progressOf(stages).pct;
+      totals.push(pct);
+
+      const now = stages.find(s => s.state === "now");
+      const next = stages.find(s => s.state === "todo");
+
+      const card = el("article", "project");
+      card.id = p.id;
+      card.append(
+        el("p", "project__client", p.client),
+        el("h3", "project__title", p.title),
+        el("p", "project__note", p.note)
+      );
+
+      if (stores) {
+        const grid = el("div", "stores");
+        stores.forEach(m => {
+          const store = el("a", "store store--" + m.state);
+          store.href = m.url;
+          store.target = "_blank";
+          store.rel = "noopener";
+          store.append(
+            el("p", "store__name", m.name),
+            el("p", "store__pct", m.pct + "%"),
+            track(m.pct),
+            el("p", "store__link", "Preview →")
+          );
+          grid.append(store);
+        });
+        card.append(grid);
+        card.append(meter("Average of the three · " + done + " of " + total + " stages", pct));
+      } else {
+        card.append(meter(done + " of " + total + " stages complete", pct));
+      }
+
+      const lines = el("div", "lines");
+      lines.append(
+        line("Now", now, { name: done ? "Between stages" : "Not started yet", note: done ? "The next stage starts soon." : "Scheduled after the online store." }),
+        line("Next", next, { name: "Handover", note: "Everything on the list is done." })
+      );
+      card.append(lines);
+
+      const details = el("details");
+      const summary = el("summary", null, "The journey · " + done + "/" + total);
+      details.append(summary);
+      const list = el("ul", "stages");
+      stages.forEach(s => {
+        const li = el("li", "stage stage--" + s.state);
+        const body = el("span", "stage__body");
+        body.append(el("p", "stage__name", s.name), el("p", "stage__note", s.note));
+        li.append(el("span", "dot"), body, el("span", "stage__state", LABEL[s.state]));
+        list.append(li);
       });
-      section.append(grid);
-      section.append(meter("Average of the three stores · " + done + " of " + total + " stages complete", pct));
-    } else {
-      section.append(meter(done + " of " + total + " stages complete", pct));
-    }
+      details.append(list);
+      card.append(details);
 
-    const cards = el("div", "cards");
-    const nowCard = el("div", now ? "card card--now" : "card card--idle");
-    nowCard.append(
-      el("p", "card__tag", now ? "Happening now" : "Status"),
-      el("h3", "card__title", now ? now.name : (done ? "Foundations in place" : "Not started yet")),
-      el("p", "card__note", now ? now.note : (done ? "The next stage starts soon." : "Scheduled after the online store."))
-    );
-    const nextCard = el("div", "card card--next");
-    nextCard.append(
-      el("p", "card__tag", "Up next"),
-      el("h3", "card__title", next ? next.name : "—"),
-      el("p", "card__note", next ? next.note : "")
-    );
-    cards.append(nowCard, nextCard);
-    section.append(cards);
+      if (p.preview) {
+        const a = el("a", "preview");
+        a.href = p.preview.url;
+        a.target = "_blank";
+        a.rel = "noopener";
+        const arrow = el("span", "preview__arrow", "→");
+        arrow.setAttribute("aria-hidden", "true");
+        a.append(el("p", "preview__title", p.preview.title), arrow);
+        card.append(a);
+      }
 
-    section.append(el("h3", "section", "The journey"));
-    const list = el("ul", "stages");
-    stages.forEach(s => {
-      const li = el("li", "stage stage--" + s.state);
-      const body = el("span", "stage__body");
-      body.append(el("p", "stage__name", s.name), el("p", "stage__note", s.note));
-      li.append(el("span", "dot"), body, el("span", "stage__state", LABEL[s.state]));
-      list.append(li);
+      board.append(card);
     });
-    section.append(list);
 
-    if (p.preview) {
-      const a = el("a", "preview");
-      a.href = p.preview.url;
-      a.target = "_blank";
-      a.rel = "noopener";
-      const row = el("div", "preview__row");
-      const text = el("div");
-      text.append(el("h3", "preview__title", p.preview.title), el("p", "preview__note", p.preview.note));
-      const arrow = el("span", "preview__arrow", "→");
-      arrow.setAttribute("aria-hidden", "true");
-      row.append(text, arrow);
-      a.append(el("p", "preview__tag", "Live preview"), row);
-      section.append(a);
-    }
-
-    root.append(section);
+    section.append(board);
+    groupsRoot.append(section);
   });
 
+  document.getElementById("overall").textContent =
+    Math.round(totals.reduce((a, n) => a + n, 0) / totals.length) + "%";
   document.getElementById("updated").textContent = UPDATED;
 
   requestAnimationFrame(() => {
